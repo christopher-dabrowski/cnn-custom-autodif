@@ -1,0 +1,35 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/*.aux": true,
+    "**/*.log": true,
+    "**/*.out": true,
+    "**/*.toc": true,
+    "**/*.lof": true,
+    "**/*.lot": true,
+    "**/*.fls": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.synctex.gz": true,
+    "**/*.tmp": true,
+    "**/*.bak": true,
+    "**/*.blg": true,
+    "**/*.bbl": true,
+    "**/*.run.xml": true,
+    "**/*.dvi": true,
+    "**/*.ps": true,
+    "**/*.bcf": true,
+    "**/*.nav": true,
+    "**/*.snm": true,
+    "**/*.xdv": true
+  },
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
+      "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
+    }
+  ]
+}
