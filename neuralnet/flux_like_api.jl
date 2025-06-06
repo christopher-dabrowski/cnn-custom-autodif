@@ -38,7 +38,7 @@ struct Chain
   end
 end
 
-function (c::Chain)(x::Variable)
+function (c::Chain)(x)
   for layer in c.layers
     x = layer(x)
   end
@@ -55,6 +55,25 @@ function trainable(model::Chain)::Vector{Variable}
     append!(params, trainable(layer))
   end
   return params
+end
+
+mutable struct Embedding <: Layer
+  weight::Variable
+  function Embedding(vocab_size::Integer, embedding_dim::Integer; init=glorot_uniform)
+    W = Variable(init(embedding_dim, vocab_size), name="embedding_weight")
+    new(W)
+  end
+end
+
+function (e::Embedding)(x::AbstractVector{<:Inf64`})
+  # x: vector of indices (1-based)
+  # Returns: matrix of size (embedding_dim, length(x)), each column is embedding for one index
+  return e.weight.output[:, x]
+end
+
+# TODO: Ask if we should train the embedding weights
+function trainable(layer::Embedding)
+  return [layer.weight]
 end
 
 abstract type Optimizer end
@@ -116,4 +135,4 @@ function update!(adam_state::AdamState, model::Chain)
   end
 end
 
-export Dense, Chain
+export Dense, Chain, Embedding
